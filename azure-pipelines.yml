@@ -7,7 +7,7 @@ variables:
   containerRegistry: 'ret3452.azurecr.io'
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
-  imagePullSecret: 'csacr5d93-auth'
+  imagePullSecret: 'cloud_user_p_b8b8c342@azurelabs.linuxacademy.com'
 
   # Agent VM image name
   vmImageName: 'dotnetexpose-latest'
