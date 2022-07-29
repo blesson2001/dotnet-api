@@ -3,14 +3,14 @@ trigger:
 
 variables:
   dockerRegistryServiceConnection: 'ACR'
-  imageRepository: 'azure-vote-front'
-  containerRegistry: 'anmereugo33.azurecr.io'
+  imageRepository: 'dotnet'
+  containerRegistry: 'ret3452.azurecr.io'
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'csacr5d93-auth'
 
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+  vmImageName: 'dotnetexpose-latest'
   
 
 stages:
@@ -62,7 +62,7 @@ stages:
             inputs:
               action: deploy
               manifests: |
-                $(Pipeline.Workspace)/manifests/vote.yml
+                $(Pipeline.Workspace)/deployment.yml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
