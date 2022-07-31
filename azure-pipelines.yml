@@ -3,8 +3,8 @@ trigger:
 
 variables:
   dockerRegistryServiceConnection: 'dockerhub'
-  imageRepository: 'blesson2001'
-  containerRegistry: 'docker.io'
+  imageRepository: 'dotnetapp'
+  containerRegistry: 'blesson2001'
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'regcred'
@@ -24,7 +24,7 @@ stages:
       vmImage: $(vmImageName)
     steps:
     - bash: docker login
-    - bash: docker image build -t $(containerRegistry)/$(imageRepository):$(tag)
+    - bash: docker image build -t $(containerRegistry)/$(imageRepository):$(tag) .
     - bash: docker push $(containerRegistry)/$(imageRepository):$(tag)
 
           
