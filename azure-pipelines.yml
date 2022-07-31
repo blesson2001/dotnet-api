@@ -27,10 +27,10 @@ stages:
     - task: Docker@1
       inputs:
           script: docker image build -t $(containerRegistry)/$(imageRepository):$(tag)
-    - task: Pushing@1
+    - task: Docker@2
       inputs:
           script: docker push $(containerRegistry)/$(imageRepository):$(tag)
-    - task: Docker@2
+    - task: Docker@3
       displayName: Build and push an image to container registry
       inputs:
         command: buildAndPush
