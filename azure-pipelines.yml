@@ -56,7 +56,7 @@ stages:
               kubernetesServiceConnection: 'kube'
               action: deploy
               manifests: |
-                $(Pipeline.Workspace)/deployment.yml
+                $(Pipeline.Workspace)/deployment.yaml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
