@@ -4,13 +4,13 @@ trigger:
 variables:
   dockerRegistryServiceConnection: 'ACR'
   imageRepository: 'dotnet'
-  containerRegistry: 'ret3452.azurecr.io'
+  containerRegistry: 'hub.docker.com'
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
-  imagePullSecret: 'cloud_user_p_b8b8c342@azurelabs.linuxacademy.com'
+  imagePullSecret: 'regcred'
 
   # Agent VM image name
-  vmImageName: 'dotnetexpose-latest'
+  vmImageName: 'dotnetexpose'
   
 
 stages:
