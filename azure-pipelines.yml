@@ -2,7 +2,7 @@ trigger:
 - master
 
 variables:
-  dockerRegistryServiceConnection: 'ACR'
+  dockerRegistryServiceConnection: 'dockerhub'
   imageRepository: 'dotnet'
   containerRegistry: 'hub.docker.com'
   dockerfilePath: '**/Dockerfile'
