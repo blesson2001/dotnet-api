@@ -20,7 +20,7 @@ spec:
       containers:
       - name: aks-basics-containers-demo
         # Docker Hub image to use
-        image: dotnetexpose-latest 
+        image: blesson2001/microservicedemo:latest
         # Define ports to expose
         ports: 
         - containerPort: 80
