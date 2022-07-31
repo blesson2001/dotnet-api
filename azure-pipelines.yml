@@ -33,4 +33,35 @@ stages:
          dockerRegistryEndpoint: 'dockerhub'
          command: 'Push an image'
          imageName: '$(ImageName)'
-      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest')) 
+      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+      
+- stage: Development
+  displayName: Deploy to dev
+  dependsOn: Build
+
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy to dev
+
+    environment: 'default'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: KubernetesManifest@0
+            displayName: Create imagePullSecret
+            inputs:
+              action: createSecret
+              secretName: $(imagePullSecret)
+              dockerRegistryEndpoint: 'dockerhub'
+              
+          - task: KubernetesManifest@0
+            displayName: Deploy to Kubernetes cluster
+            inputs:
+              action: deploy
+              manifests: |
+                $(Pipeline.Workspace)/deployment.yml
+              imagePullSecrets: |
+                $(imagePullSecret)
+              containers: |
+                blesson2001/microservicedemo:$(Build.BuildId)
