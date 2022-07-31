@@ -3,8 +3,8 @@ trigger:
 
 variables:
   dockerRegistryServiceConnection: 'dockerhub'
-  imageRepository: 'blesson2001'
-  containerRegistry: 'docker.io/blesson2001'
+  imageRepository: 'hub.docker.com/blesson2001'
+  containerRegistry: 'hub.docker.com/blesson2001'
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'regcred'
