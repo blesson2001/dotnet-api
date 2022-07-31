@@ -4,7 +4,7 @@ trigger:
 
 
 variables:
-  ImageName: 'blesson2001/microservicedemo:$(Build.BuildId)'  
+  ImageName: 'blesson2001/microservicedemo:latest'  
 
 
 stages:
@@ -63,4 +63,4 @@ stages:
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
-                blesson2001/microservicedemo:$(Build.BuildId)
+                blesson2001/microservicedemo:latest
