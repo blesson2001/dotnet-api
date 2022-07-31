@@ -1,64 +1,27 @@
 trigger:
 - main
 
-variables:
-  dockerRegistryServiceConnection: 'dockerhub'
-  imageRepository: 'dotnetapp'
-  containerRegistry: 'blesson2001'
-  dockerfilePath: '**/Dockerfile'
-  tag: '$(Build.BuildId)'
-  imagePullSecret: 'regcred'
 
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
-  
+
+variables:
+  ImageName: 'blesson2001/microservicedemo:$(Build.BuildId)'  
+
 
 stages:
-
 - stage: Build
-  displayName: Build stage
+  displayName: Build image
   jobs:  
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: $(vmImageName)
+  - job: DockerImage
+    displayName: Build and push Docker image
     steps:
-    - bash: docker login
-    - bash: docker image build -t $(containerRegistry)/$(imageRepository):$(tag) .
-    - bash: docker login
-    - bash: docker push $(containerRegistry)/$(imageRepository):$(tag)
-
-          
-
-
-- stage: Development
-  displayName: Deploy to dev
-  dependsOn: Build
-
-  jobs:
-  - deployment: Deploy
-    displayName: Deploy to dev
-    pool:
-      vmImage: $(vmImageName)
-    environment: 'dev'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: KubernetesManifest@0
-            displayName: Create imagePullSecret
-            inputs:
-              action: createSecret
-              secretName: $(imagePullSecret)
-              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
-              
-          - task: KubernetesManifest@0
-            displayName: Deploy to Kubernetes cluster
-            inputs:
-              action: deploy
-              manifests: |
-                $(Pipeline.Workspace)/deployment.yml
-              imagePullSecrets: |
-                $(imagePullSecret)
-              containers: |
-                $(containerRegistry)/$(imageRepository):$(tag)
+    - task: Docker@1
+      displayName: 'Build the Docker image'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'dockerhub'
+        command: 'Build an image'
+        dockerFile: '**/Dockerfile'
+        imageName: '$(ImageName)'
+        includeLatestTag: true
+        useDefaultContext: false
+        buildContext: '.'
