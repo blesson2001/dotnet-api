@@ -24,6 +24,12 @@ stages:
       vmImage: $(vmImageName)
     steps:
     - bash: docker login
+    - task: Docker@1
+        inputs:
+          script: docker image build -t $(containerRegistry)/$(imageRepository):$(tag)
+    - task: Pushing
+        inputs:
+          script: docker push $(containerRegistry)/$(imageRepository):$(tag)
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
