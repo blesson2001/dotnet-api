@@ -25,6 +25,7 @@ stages:
     steps:
     - bash: docker login
     - bash: docker image build -t $(containerRegistry)/$(imageRepository):$(tag) .
+    - bash: docker login
     - bash: docker push $(containerRegistry)/$(imageRepository):$(tag)
 
           
