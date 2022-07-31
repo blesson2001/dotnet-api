@@ -10,7 +10,7 @@ variables:
   imagePullSecret: 'regcred'
 
   # Agent VM image name
-  vmImageName: 'blesson2001/dotnetexpose:latest'
+  vmImageName: 'ubuntu'
   
 
 stages:
