@@ -3,22 +3,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   # Name of deployment - Required
-  name: aks-basics-deployment-demo 
+  name: aks-dotnetapp-deployment 
 spec:
   replicas: 2
   selector:
     matchLabels: 
-      app: aks-basics-demo
+      app: aks-dotnetapp
   # Pod template which decribes the pod you want to deploy
   template: 
     metadata:
       # Used to logically group pods together
       labels: 
-        app: aks-basics-demo
+        app: aks-dotnetapp
     # Specific details about the containers in the Pod
     spec: 
       containers:
-      - name: aks-basics-containers-demo
+      - name: aks-dotnetapp-containers
         # Docker Hub image to use
         image: blesson2001/microservicedemo:latest
         # Define ports to expose
@@ -43,7 +43,7 @@ apiVersion: v1
 kind: Service
 metadata:
 # Name of Service - Required
-  name: aks-basics-loadbalancer-demo
+  name: aks-dotnetapp-loadbalancer
 # Specific details about the Service
 spec:
 # Type of Service to be deployed
@@ -52,4 +52,4 @@ spec:
   - port: 80
   # Used to tell the Service which Pods to associate with
   selector:
-    app: aks-basics-demo
+    app: aks-dotnetapp
