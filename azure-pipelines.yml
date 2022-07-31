@@ -4,7 +4,7 @@ trigger:
 variables:
   dockerRegistryServiceConnection: 'dockerhub'
   imageRepository: 'blesson2001'
-  containerRegistry: 'docker.io'
+  containerRegistry: 'docker.io/blesson2001'
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'regcred'
