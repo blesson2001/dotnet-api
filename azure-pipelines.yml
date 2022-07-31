@@ -27,7 +27,7 @@ stages:
     - task: Docker@1
       inputs:
           script: docker image build -t $(containerRegistry)/$(imageRepository):$(tag)
-    - task: Pushing
+    - task: Pushing@1
       inputs:
           script: docker push $(containerRegistry)/$(imageRepository):$(tag)
     - task: Docker@2
