@@ -35,6 +35,9 @@ stages:
          imageName: '$(ImageName)'
       condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
       
+    - upload: manifests
+      artifact: manifests  
+      
 - stage: Development
   displayName: Deploy to dev
   dependsOn: Build
@@ -56,7 +59,7 @@ stages:
               kubernetesServiceConnection: 'kube'
               action: deploy
               manifests: |
-                manifests/deployment.yaml
+                $(Pipeline.Workspace)/manifests/deployment.yaml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
